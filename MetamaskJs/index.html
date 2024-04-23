@@ -6,18 +6,33 @@
     <title>Document</title>
   </head>
   <body>
-    <input type="button" value="Click" onclick="web3MetaOpen()" />
+    <button id="connect-button" onclick="web3MetaOpen()">
+      Connect Metamask
+    </button>
     <script>
       function web3MetaOpen() {
+        let account;
         if (window.ethereum) {
-          window.ethereum.request({
-              method: "eth_requestAccounts",
-            })
-            .then((result) => {
-              console.log(result[0]);
+          ethereum
+            .request({ method: "eth_requestAccounts" }) //connect to account
+            .then((accounts) => {
+              account = accounts[0];
+              console.log(account);
+              ethereum
+                .request({
+                  method: "eth_getBalance", //get balance
+                  params: [account, "latest"],
+                })
+                .then((result) => {
+                  console.log(result); //get balance in to hex
+                  //convert hex to decimal
+                  let wei = parseInt(result, 16);
+                  let balance = wei / 10 ** 18;
+                  console.log(balance + " ETH");
+                });
             });
         } else {
-          alert("Please install MetaMask");
+          alert("Please install Metamask");
         }
       }
     </script>
