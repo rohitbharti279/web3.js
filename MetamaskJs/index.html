@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
+    <title>My Web3 App</title>
   </head>
   <body>
     <button id="connect-button" onclick="web3MetaOpen()">
@@ -24,12 +25,40 @@
                   params: [account, "latest"],
                 })
                 .then((result) => {
-                  console.log(result); //get balance in to hex
-                  //convert hex to decimal
+                  console.log(result); //get balance in to wei
+                  //convert wei to decimal
                   let wei = parseInt(result, 16);
                   let balance = wei / 10 ** 18;
-                  console.log(balance + " ETH");
+                  console.log("Balance:", balance + " ETH");
+                })
+                .catch((error) => {
+                  console.error("Error fetching balance:", error);
                 });
+
+              // Send transaction
+            //   const amountToSend = "0.1"; // Amount in Ether
+            //   const recipientAddress = "0x..."; // Recipient's Ethereum address
+            //   const transactionParameters = {
+            //     from: account,
+            //     to: recipientAddress,
+            //     value: web3.utils.toWei(amountToSend, "ether"),
+            //   };
+
+            //   ethereum
+            //     .request({
+            //       method: "eth_sendTransaction",
+            //       params: [transactionParameters],
+            //     })
+            //     .then((txHash) => {
+            //       console.log("Transaction sent:", txHash);
+            //       // You can listen for confirmation events or do other tasks here
+            //     })
+            //     .catch((error) => {
+            //       console.error("Error sending transaction:", error);
+            //     });
+            })
+            .catch((error) => {
+              console.error("Error connecting to account:", error);
             });
         } else {
           alert("Please install Metamask");
