@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="button" value="Click" onclick="web3MetaOpen()" />
+    <script>
+      function web3MetaOpen() {
+        if (window.ethereum) {
+          window.ethereum.request({
+              method: "eth_requestAccounts",
+            })
+            .then((result) => {
+              console.log(result[0]);
+            });
+        } else {
+          alert("Please install MetaMask");
+        }
+      }
+    </script>
+  </body>
+</html>
